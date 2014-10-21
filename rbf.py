@@ -82,15 +82,16 @@ class rbf:
         """Confusion matrix"""
 
         outputs = self.rbffwd(inputs)
-        nClasses = np.shape(targets)[1]
+        nClasses = 3
+        #nClasses = np.shape(targets)[1]
 
-        if nClasses==1:
-            nClasses = 2
-            outputs = np.where(outputs>0,1,0)
-        else:
+        #if nClasses==1:
+        #    nClasses = 2
+        #    outputs = np.where(outputs>0,1,0)
+        #else:
             # 1-of-N encoding
-            outputs = np.argmax(outputs,1)
-            targets = np.argmax(targets,1)
+        #    outputs = np.argmax(outputs,1)
+        #    targets = np.argmax(targets,1)
 
         cm = np.zeros((nClasses,nClasses))
         for i in range(nClasses):
