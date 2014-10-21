@@ -97,5 +97,7 @@ class rbf:
             for j in range(nClasses):
                 cm[i,j] = np.sum(np.where(outputs==i,1,0)*np.where(targets==j,1,0))
 
-        print cm
-        print np.trace(cm)/np.sum(cm)
+        # print cm
+        # print np.trace(cm)/np.sum(cm)
+
+        return cm
