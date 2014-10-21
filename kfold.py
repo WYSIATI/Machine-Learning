@@ -5,6 +5,8 @@ def kfold_xvalid(g_input, g_target, k):
 
 	import rbf
 
+	
+
 	for fold in range(k):
 		valid_input = g_input[fold]
 		valid_target = g_target[fold]		
@@ -23,9 +25,9 @@ def kfold_xvalid(g_input, g_target, k):
 		#conf += net.confmat(test,testt)
 
 		# Train & Test Radial Basis Function network
-		net = rbf.rbf(train,traint,5,1,1)
-		net.rbftrain(train,traint,0.25,2000)
-		conf += net.confmat(test,testt)
+		net = rbf.rbf(train_input,train_target,5,1,1)
+		net.rbftrain(train_input,train_target,0.25,2000)
+		conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test Support Vector Machine
 		#net = rbf.rbf(train,traint,5,1,1)
