@@ -11,7 +11,7 @@
 import numpy as np
 import pylab as pl
 
-iris = np.loadtxt('iris_proc.data',delimiter=',')
+iris = np.loadtxt('iris_proc.dat',delimiter=',')
 #iris[:,:4] = iris[:,:4]-iris[:,:4].mean(axis=0)
 imax = np.concatenate((iris.max(axis=0)*np.ones((1,5)),iris.min(axis=0)*np.ones((1,5))),axis=0).max(axis=0)
 #iris[:,:4] = iris[:,:4]/imax[:4]
@@ -101,7 +101,7 @@ err = np.where(bestclass!=iris[1::2,4])[0]
 print err
 print float(len(err))/ (np.shape(testt)[0]) , "test accuracy"
 
-print z
+#print z
 # Make a plot
 pl.figure()
 step=0.01
@@ -119,9 +119,10 @@ pl.contourf(f0, f1, out, cmap=pl.cm.Paired)
 #pl.axis('off')
 
 # Plot also the training points
-#traint = np.where(traint==-1,0,1)
+traint = np.where(traint==-1,0,1)
 pl.plot(train[svm0.sv,0],train[svm0.sv,1],'o',markerfacecolor=None,markeredgecolor='r',markeredgewidth=3)
 pl.scatter(train[:, 0], train[:, 1], c=iris[::2,4], cmap=pl.cm.Paired)
 #pl.plot(train[:, 0], train[:, 1],'o', c=traint, cmap=pl.cm.Paired)
-
+pl.plot(train[:, 0], train[:, 1],'o')
+pl.show()
 
