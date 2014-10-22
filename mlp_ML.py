@@ -30,7 +30,6 @@ class mlp:
         self.weights2 = (np.random.rand(self.nhidden+1,self.nout)-0.5)*2/np.sqrt(self.nhidden)
     
     def earlystopping(self,inputs,targets,valid,validtargets,eta,niterations=100):
-        return
         valid = np.concatenate((valid,-np.ones((np.shape(valid)[0],1))),axis=1)
         
         old_val_error1 = 100002
