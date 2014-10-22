@@ -24,6 +24,7 @@ def normalize_data():
 
 k = 150
 normalize_data()
+
 conf = kfold.kfold_xvalid(g_input, g_target, k)
 
 print conf
