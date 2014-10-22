@@ -97,18 +97,25 @@ class mlp:
     def mlpfwd(self,inputs):
         """ Run the network forward """
             
-        print "inputs\n", inputs
-        print "weights\n", self.weights1
+        #print "inputs\n", inputs
+        #print "weights\n", self.weights1
         self.hidden = np.dot(inputs,self.weights1);
         self.hidden = 1.0/(1.0+np.exp(-self.beta*self.hidden))
 
-        print "mlpFWD"
-        print self.hidden
-        self.hidden = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1)        
-        # self.hidden = np.concatenate((self.hidden,-np.ones((np.shape(inputs)[0],1))),axis=1)
+        #print "mlpFWD"
+        #print self.hidden
+
+        if len(self.hidden.shape) == 1:
+            self.hidden = np.append(self.hidden,-1)
+        else:
+            #self.hidden = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1) 
+            self.hidden = np.concatenate((self.hidden,-np.ones((np.shape(inputs)[0],1))),axis=1)
+
+               
+        
         
         outputs = np.dot(self.hidden,self.weights2);
-        
+
         # Different types of output neurons
         if self.outtype == 'linear':
             return outputs
@@ -127,25 +134,25 @@ class mlp:
         print(inputs)
 
         #with_bias = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1)
-
-        inputs = np.concatenate((inputs[0,:],-np.ones((np.shape(inputs[0,:])[0],1))),axis=1)
-        outputs = self.mlpfwd(inputs)
-        
-        nclasses = np.shape(targets)[1]
-        
-        if nclasses==1:
-            nclasses = 2
-            outputs = np.where(outputs>0.5,1,0)
+        if len(inputs.shape) == 1:
+            inputs = np.append(inputs,-1)
         else:
-            # 1-of-N encoding
-            outputs = np.argmax(outputs,1)
-            targets = np.argmax(targets,1)
-        
-        cm = np.zeros((nclasses,nclasses))
-        for i in range(nclasses):
-            for j in range(nclasses):
-                cm[i,j] = np.sum(np.where(outputs==i,1,0)*np.where(targets==j,1,0))
-        
-        print "Confusion matrix is:"
-        print cm
-        print "Percentage Correct: ",np.trace(cm)/np.sum(cm)*100
+            inputs = np.concatenate((inputs,-np.ones((np.shape(inputs)[0],1))),axis=1)
+
+        temp_inputs = np.zeros((2,5))
+        temp_inputs[0] = inputs
+        temp_inputs[1] = inputs
+        #inputs = np.concatenate((inputs,inputs),axis=0)
+        inputs = temp_inputs
+
+        outputs = self.mlpfwd(inputs)
+        nClasses = 3
+
+        cm = np.zeros((nClasses, nClasses))
+        temp_idx = np.where(targets == 1)
+
+        print "IDX\n",temp_idx,"\nOUTPUTS",outputs
+
+
+        cm[temp_idx[0][0], :] = outputs[0,0:-1]
+        return cm

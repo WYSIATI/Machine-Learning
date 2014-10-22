@@ -36,6 +36,7 @@ def kfold_xvalid(g_input, g_target, k):
 		#net.earlystopping(train_input,train_input, valid_input, valid_target, 0.1, 200)
 		net.mlptrain(train_input, train_input, 0.1, 200)
 		conf += net.confmat(valid_input,valid_target)
+		print "CONFUSION\n", conf
 
 		# Train & Test Radial Basis Function network
 		# net = rbf.rbf(train_input,train_target,5,1,1)
