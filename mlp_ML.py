@@ -74,13 +74,13 @@ class mlp:
                 deltao = self.beta*(self.outputs-targets)*self.outputs*(1.0-self.outputs)
             elif self.outtype == 'softmax':
                 deltao = (self.outputs-targets)*(self.outputs*(-self.outputs)+self.outputs)/self.ndata
-                else:
-                    print "error"
+            else:
+                print "error"
 
-deltah = self.hidden*self.beta*(1.0-self.hidden)*(np.dot(deltao,np.transpose(self.weights2)))
+            deltah = self.hidden*self.beta*(1.0-self.hidden)*(np.dot(deltao,np.transpose(self.weights2)))
     
-    updatew1 = eta*(np.dot(np.transpose(inputs),deltah[:,:-1])) + self.momentum*updatew1
-        updatew2 = eta*(np.dot(np.transpose(self.hidden),deltao)) + self.momentum*updatew2
+            updatew1 = eta*(np.dot(np.transpose(inputs),deltah[:,:-1])) + self.momentum*updatew1
+            updatew2 = eta*(np.dot(np.transpose(self.hidden),deltao)) + self.momentum*updatew2
             self.weights1 -= updatew1
             self.weights2 -= updatew2
 
@@ -92,21 +92,21 @@ deltah = self.hidden*self.beta*(1.0-self.hidden)*(np.dot(deltao,np.transpose(sel
 def mlpfwd(self,inputs):
     """ Run the network forward """
         
-        self.hidden = np.dot(inputs,self.weights1);
-        self.hidden = 1.0/(1.0+np.exp(-self.beta*self.hidden))
-        self.hidden = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1)        
-        # self.hidden = np.concatenate((self.hidden,-np.ones((np.shape(inputs)[0],1))),axis=1)
-        
-        outputs = np.dot(self.hidden,self.weights2);
-        
-        # Different types of output neurons
-        if self.outtype == 'linear':
-            return outputs
-        elif self.outtype == 'logistic':
-            return 1.0/(1.0+np.exp(-self.beta*outputs))
-        elif self.outtype == 'softmax':
-            normalisers = np.sum(np.exp(outputs),axis=1)*np.ones((1,np.shape(outputs)[0]))
-            return np.transpose(np.transpose(np.exp(outputs))/normalisers)
+    self.hidden = np.dot(inputs,self.weights1);
+    self.hidden = 1.0/(1.0+np.exp(-self.beta*self.hidden))
+    self.hidden = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1)        
+    # self.hidden = np.concatenate((self.hidden,-np.ones((np.shape(inputs)[0],1))),axis=1)
+    
+    outputs = np.dot(self.hidden,self.weights2);
+    
+    # Different types of output neurons
+    if self.outtype == 'linear':
+        return outputs
+    elif self.outtype == 'logistic':
+        return 1.0/(1.0+np.exp(-self.beta*outputs))
+    elif self.outtype == 'softmax':
+        normalisers = np.sum(np.exp(outputs),axis=1)*np.ones((1,np.shape(outputs)[0]))
+        return np.transpose(np.transpose(np.exp(outputs))/normalisers)
     else:
         print "error"
     
@@ -134,4 +134,4 @@ def mlpfwd(self,inputs):
         
         print "Confusion matrix is:"
         print cm
-                print "Percentage Correct: ",np.trace(cm)/np.sum(cm)*100
+        print "Percentage Correct: ",np.trace(cm)/np.sum(cm)*100

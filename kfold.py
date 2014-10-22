@@ -29,7 +29,7 @@ def kfold_xvalid(g_input, g_target, k):
 		# conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test MultiLayer Perceptron network
-		net = mlp_ML.mlp(train_input,train_input,2)
+		net = mlp.mlp(train_input,train_input,2)
 		net.earlystopping(train_input,train_input, valid_input, valid_target, 0.1, 200)
 		conf += net.confmat(valid_input,valid_target)
 
