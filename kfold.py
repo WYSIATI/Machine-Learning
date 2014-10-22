@@ -39,9 +39,33 @@ def kfold_xvalid(g_input, g_target, k):
 		# conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test Support Vector Machine
-		#net = rbf.rbf(train,traint,5,1,1)
-		#net.rbftrain(train,traint,0.25,2000)
-		#conf += net.confmat(test,testt)
+		# Learn the full data
+		#svm0 = svm.svm(kernel='linear')
+		#svm0 = svm.svm(kernel='poly',C=0.1,degree=3)
+		# svm0 = svm.svm(kernel='rbf')
+		# svm0.train_svm(train,np.reshape(traint[:,0],(np.shape(train[:,:2])[0],1)))
+		# output[:,0] = svm0.classifier(test,soft=True).T
+
+		# #svm1 = svm.svm(kernel='linear')
+		# #svm1 = svm.svm(kernel='poly',C=0.1,degree=3)
+		# svm1 = svm.svm(kernel='rbf')
+		# svm1.train_svm(train,np.reshape(traint[:,1],(np.shape(train[:,:2])[0],1)))
+		# output[:,1] = svm1.classifier(test,soft=True).T
+
+		# #svm2 = svm.svm(kernel='linear')
+		# #svm2 = svm.svm(kernel='poly',C=0.1,degree=3)
+		# svm2 = svm.svm(kernel='rbf')
+		# svm2.train_svm(train,np.reshape(traint[:,2],(np.shape(train[:,:2])[0],1)))
+		# output[:,2] = svm2.classifier(test,soft=True).T
+
+		# # Make a decision about which class
+		# # Pick the one with the largest margin
+		# bestclass = np.argmax(output,axis=1)
+		# print bestclass
+		# print iris[1::2,4]
+		# err = np.where(bestclass!=iris[1::2,4])[0]
+		# print err
+		# print float(np.shape(testt)[0] - len(err))/ (np.shape(testt)[0]) , "test accuracy"
 
 		# Train & Test Decision Tree
 		#net = rbf.rbf(train,traint,5,1,1)
