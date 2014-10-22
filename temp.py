@@ -6,9 +6,24 @@ order = range(np.shape(g_input_data)[0])
 np.random.shuffle(order)
 g_input_data = g_input_data[order, :]
 
-g_input = g_input_data[:, :4]
-g_target = g_input_data[:, 4:]
+# make a new blank array of size (inputs x classes)
 
+g_target = np.zeros((np.shape(g_input_data)[0],3));
+
+#where the 3rd column = 0, make a 1 in the 0th column of target
+indices = np.where(g_input_data[:,4]==0) 
+g_target[indices,0] = 1
+
+#where the 3rd column = 1, make a 1 in the 1th column of target
+indices = np.where(g_input_data[:,4]==1)
+g_target[indices,1] = 1
+
+#where the 3rd column = 2, make a 1 in the 2th column of target
+indices = np.where(g_input_data[:,4]==2)
+g_target[indices,2] = 1
+
+g_input = g_input_data[:, :4]
+#g_target = g_input_data[:, 4:]
 
 def normalize_data():
 	for index in range(4):
