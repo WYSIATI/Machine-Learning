@@ -24,9 +24,9 @@ def kfold_xvalid(g_input, g_target, k):
 		# print(train_target)
 
 		# Train & Test Perceptron network
-		# net = pcn.pcn(train_input,train_target)
-		# net.pcntrain(train_input,train_target,0.25,100)
-		# conf += net.confmat(valid_input,valid_target)
+		net = pcn.pcn(train_input,train_target)
+		net.pcntrain(train_input,train_target,0.25,100)
+		conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test MultiLayer Perceptron network
 		#net = rbf.rbf(train,traint,5,1,1)
@@ -34,9 +34,9 @@ def kfold_xvalid(g_input, g_target, k):
 		#conf += net.confmat(test,testt)
 
 		# Train & Test Radial Basis Function network
-		net = rbf.rbf(train_input,train_target,5,1,1)
-		net.rbftrain(train_input,train_target,0.25,2000)
-		conf += net.confmat(valid_input,valid_target)
+		#net = rbf.rbf(train_input,train_target,5,1,1)
+		#net.rbftrain(train_input,train_target,0.25,2000)
+		#conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test Support Vector Machine
 		#net = rbf.rbf(train,traint,5,1,1)

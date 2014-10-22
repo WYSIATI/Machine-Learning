@@ -63,19 +63,28 @@ class rbf:
         self.perceptron.pcntrain(self.hidden[:,:-1],targets,eta,niterations)
         
     def rbffwd(self,inputs):
-
+        print("inputs")
+        print inputs
         hidden = np.zeros((np.shape(inputs)[0],self.nRBF+1))
 
+        print("hidden")
         for i in range(self.nRBF):
             hidden[:,i] = np.exp(-np.sum((inputs - np.ones((1,self.nin))*self.weights1[:,i])**2,axis=1)/(2*self.sigma**2))
 
+        print(hidden)
         if self.normalise:
             hidden[:,:-1] /= np.transpose(ones((1,np.shape(hidden)[0]))*hidden[:,:-1].sum(axis=1))
+        print("Normalized")
+        print(hidden)
         
+
         # Add the bias
         hidden[:,-1] = -1
-
+        print("Hidden with bias")
+        print(hidden)
         outputs = self.perceptron.pcnfwd(hidden)
+        print("Outputs")
+        print(outputs)
         return outputs
     
     def confmat(self,inputs,targets):

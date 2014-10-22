@@ -57,11 +57,12 @@ class pcn:
 
 		# Compute activations
 		# print("****************************************************************************************")
-		# print("PCN FORWARD INPUTS")
-		# print(inputs)
+		#print("PCN FORWARD INPUTS")
+		#print(inputs)
+
 		activations =  np.dot(inputs,self.weights)
-		# print("WEIGHTS")
-		# print(self.weights)
+		#print("WEIGHTS")
+		#print(self.weights)
 		# print("ACTIVATIONS")
 		# print(activations)
 		
@@ -71,18 +72,32 @@ class pcn:
 
 		# Fix bug that returns more than one tuth value
 		# Threshold the activations
+		#print 'activations', '\n', activations
 		active_max = np.max(activations)
-		return np.where(activations==active_max,1,0)
+
+		#RBF
+		#return np.where(activations==active_max,1,0)
+
+		#PCN
+		return np.where(activations>0,1,0)
+
+
+		
 
 
 	def confmat(self,inputs,targets):
 		"""Confusion matrix"""
 
-		outputs = self.pcnfwd(inputs)
-		outputs = outputs[0, :]
+		with_bias = np.concatenate((inputs,np.array([-1])), axis = 0)
+		#print "WITH BIAS" , with_bias
+		outputs = self.pcnfwd(with_bias)
+		print("OUTPUTS")
+		print outputs
+		#outputs = outputs[0, :]
 		nClasses = 3
 
-		cm = zeros((nClasses, nClasses))
+
+		cm = np.zeros((nClasses, nClasses))
 		temp_idx = np.where(targets == 1)
 		cm[temp_idx[0][0], :] = outputs
 		return cm
