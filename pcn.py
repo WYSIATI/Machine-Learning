@@ -56,10 +56,24 @@ class pcn:
 		""" Run the network forward """
 
 		# Compute activations
+		# print("****************************************************************************************")
+		# print("PCN FORWARD INPUTS")
+		# print(inputs)
 		activations =  np.dot(inputs,self.weights)
-
+		# print("WEIGHTS")
+		# print(self.weights)
+		# print("ACTIVATIONS")
+		# print(activations)
+		
+		#OLD Code
 		# Threshold the activations
-		return np.where(activations>0,1,0)
+		#return np.where(activations>0,1,0)
+
+		# Fix bug that returns more than one tuth value
+		# Threshold the activations
+		active_max = np.max(activations)
+		return np.where(activations==active_max,1,0)
+
 
 	def confmat(self,inputs,targets):
 		"""Confusion matrix"""
