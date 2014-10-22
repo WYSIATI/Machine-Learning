@@ -38,7 +38,7 @@ def normalize_data():
 			g_input[inner_idx][index] = temp_list[inner_idx]
 
 k = 150
-normalize_data()
+#normalize_data()
 conf = kfold.kfold_xvalid(g_input, g_target, k)
 
 print conf

@@ -83,15 +83,15 @@ class rbf:
 
         outputs = self.rbffwd(inputs)
 
-        print("(CONF) Inputs = ")
-        print(inputs)
-        print("Outputs = ")
-        print(outputs)
+        # print("(CONF) Inputs = ")
+        # print(inputs)
+        # print("Outputs = ")
+        # print(outputs)
         outputs = outputs[0,:]
-        print("TRIMMED Outputs = ")
-        print(outputs)
-        print("Targets = ")
-        print(targets)
+        # print("TRIMMED Outputs = ")
+        # print(outputs)
+        # print("Targets = ")
+        # print(targets)
         nClasses = 3
         #nClasses = np.shape(targets)[1]
 
@@ -109,7 +109,9 @@ class rbf:
         cm[temp_idx[0][0],:] = outputs
 
 #                cm[predict,truth] = np.where(outputs==predict,1,0)*np.where(targets==truth,1,0))
-
+        # print ("In/Out/CM")
+        # print targets
+        # print outputs
         # print cm
         # print np.trace(cm)/np.sum(cm)
 

@@ -44,12 +44,12 @@ class pcn:
 			
 			self.activations = self.pcnfwd(inputs);
 			self.weights -= eta*np.dot(np.transpose(inputs),self.activations-targets)
-			print "Iteration: ", n
-			print self.weights
+			#print "Iteration: ", n
+			#print self.weights
 			
 			activations = self.pcnfwd(inputs)
-			print "Final outputs are:"
-			print activations
+			#print "Final outputs are:"
+			#print activations
 		#return self.weights
 
 	def pcnfwd(self,inputs):
