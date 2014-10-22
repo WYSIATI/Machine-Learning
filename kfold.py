@@ -30,10 +30,11 @@ def kfold_xvalid(g_input, g_target, k):
 		# conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test MultiLayer Perceptron network
+
 		net = mlp.mlp(train_input,train_input,2)
 		# Not doing early stopping for now
 		#net.earlystopping(train_input,train_input, valid_input, valid_target, 0.1, 200)
-		net.mlptrain(train_input,train_input, valid_input, valid_target, 0.1, 200)
+		net.mlptrain(train_input, train_input, 0.1, 200)
 		conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test Radial Basis Function network

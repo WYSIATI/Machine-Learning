@@ -52,7 +52,13 @@ class mlp:
     def mlptrain(self,inputs,targets,eta,niterations):
         """ Train the thing """
         # Add the inputs that match the bias node
+
+        
+
         inputs = np.concatenate((inputs,-np.ones((self.ndata,1))),axis=1)
+
+
+
         change = range(self.ndata)
         
         updatew1 = np.zeros((np.shape(self.weights1)))
@@ -91,8 +97,13 @@ class mlp:
     def mlpfwd(self,inputs):
         """ Run the network forward """
             
+        print "inputs\n", inputs
+        print "weights\n", self.weights1
         self.hidden = np.dot(inputs,self.weights1);
         self.hidden = 1.0/(1.0+np.exp(-self.beta*self.hidden))
+
+        print "mlpFWD"
+        print self.hidden
         self.hidden = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1)        
         # self.hidden = np.concatenate((self.hidden,-np.ones((np.shape(inputs)[0],1))),axis=1)
         
@@ -115,10 +126,10 @@ class mlp:
         # Add the inputs that match the bias node
         print(inputs)
 
-        with_bias = np.concatenate((inputs,np.array([-1])), axis = 0)
+        #with_bias = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1)
 
-        # inputs = np.concatenate((inputs[0,:],-np.ones((np.shape(inputs[0,:])[0],1))),axis=0)
-        outputs = self.mlpfwd(with_bias)
+        inputs = np.concatenate((inputs[0,:],-np.ones((np.shape(inputs[0,:])[0],1))),axis=1)
+        outputs = self.mlpfwd(inputs)
         
         nclasses = np.shape(targets)[1]
         
