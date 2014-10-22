@@ -74,8 +74,8 @@ class mlp:
                 deltao = self.beta*(self.outputs-targets)*self.outputs*(1.0-self.outputs)
             elif self.outtype == 'softmax':
                 deltao = (self.outputs-targets)*(self.outputs*(-self.outputs)+self.outputs)/self.ndata
-                else:
-                    print "error"
+            else:
+                print "error"
 
 deltah = self.hidden*self.beta*(1.0-self.hidden)*(np.dot(deltao,np.transpose(self.weights2)))
     
