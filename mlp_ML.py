@@ -115,8 +115,11 @@ class mlp:
         
         # Add the inputs that match the bias node
         print(inputs)
-        inputs = np.concatenate((inputs,-np.ones((np.shape(inputs)[0],1))),axis=1)
-        outputs = self.mlpfwd(inputs)
+
+        with_bias = np.concatenate((inputs,np.array([-1])), axis = 0)
+
+        # inputs = np.concatenate((inputs[0,:],-np.ones((np.shape(inputs[0,:])[0],1))),axis=0)
+        outputs = self.mlpfwd(with_bias)
         
         nclasses = np.shape(targets)[1]
         

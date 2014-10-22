@@ -8,6 +8,7 @@ def kfold_xvalid(g_input, g_target, k):
 	conf = np.zeros((3, 3))
 	for fold in range(k):
 #	for fold in range(1):
+		print fold
 		valid_input = g_input[fold]
 		valid_target = g_target[fold]		
 		#print valid_target	
@@ -30,7 +31,9 @@ def kfold_xvalid(g_input, g_target, k):
 
 		# Train & Test MultiLayer Perceptron network
 		net = mlp.mlp(train_input,train_input,2)
-		net.earlystopping(train_input,train_input, valid_input, valid_target, 0.1, 200)
+		# Not doing early stopping for now
+		#net.earlystopping(train_input,train_input, valid_input, valid_target, 0.1, 200)
+		net.mlptrain(train_input,train_input, valid_input, valid_target, 0.1, 200)
 		conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test Radial Basis Function network
