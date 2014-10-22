@@ -35,13 +35,7 @@ def kfold_xvalid(g_input, g_target, k):
 
 		# Train & Test Radial Basis Function network
 		net = rbf.rbf(train_input,train_target,5,1,1)
-<<<<<<< HEAD
-		net.rbftrain(train_input,train_target,0.25,1000)
-
-
-=======
-		net.rbftrain(train_input,train_target,0.25,500)
->>>>>>> FETCH_HEAD
+		net.rbftrain(train_input,train_target,0.25,2000)
 		conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test Support Vector Machine
