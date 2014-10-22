@@ -30,7 +30,7 @@ class mlp:
         self.weights2 = (np.random.rand(self.nhidden+1,self.nout)-0.5)*2/np.sqrt(self.nhidden)
     
     def earlystopping(self,inputs,targets,valid,validtargets,eta,niterations=100):
-        
+        return
         valid = np.concatenate((valid,-np.ones((np.shape(valid)[0],1))),axis=1)
         
         old_val_error1 = 100002
@@ -89,31 +89,32 @@ class mlp:
 #inputs = inputs[change,:]
 #targets = targets[change,:]
 
-def mlpfwd(self,inputs):
-    """ Run the network forward """
+    def mlpfwd(self,inputs):
+        """ Run the network forward """
+            
+        self.hidden = np.dot(inputs,self.weights1);
+        self.hidden = 1.0/(1.0+np.exp(-self.beta*self.hidden))
+        self.hidden = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1)        
+        # self.hidden = np.concatenate((self.hidden,-np.ones((np.shape(inputs)[0],1))),axis=1)
         
-    self.hidden = np.dot(inputs,self.weights1);
-    self.hidden = 1.0/(1.0+np.exp(-self.beta*self.hidden))
-    self.hidden = np.concatenate((self.hidden,-np.ones((self.ndata,1))),axis=1)        
-    # self.hidden = np.concatenate((self.hidden,-np.ones((np.shape(inputs)[0],1))),axis=1)
-    
-    outputs = np.dot(self.hidden,self.weights2);
-    
-    # Different types of output neurons
-    if self.outtype == 'linear':
-        return outputs
-    elif self.outtype == 'logistic':
-        return 1.0/(1.0+np.exp(-self.beta*outputs))
-    elif self.outtype == 'softmax':
-        normalisers = np.sum(np.exp(outputs),axis=1)*np.ones((1,np.shape(outputs)[0]))
-        return np.transpose(np.transpose(np.exp(outputs))/normalisers)
-    else:
-        print "error"
+        outputs = np.dot(self.hidden,self.weights2);
+        
+        # Different types of output neurons
+        if self.outtype == 'linear':
+            return outputs
+        elif self.outtype == 'logistic':
+            return 1.0/(1.0+np.exp(-self.beta*outputs))
+        elif self.outtype == 'softmax':
+            normalisers = np.sum(np.exp(outputs),axis=1)*np.ones((1,np.shape(outputs)[0]))
+            return np.transpose(np.transpose(np.exp(outputs))/normalisers)
+        else:
+            print "error"
     
     def confmat(self,inputs,targets):
         """Confusion matrix"""
         
         # Add the inputs that match the bias node
+        print(inputs)
         inputs = np.concatenate((inputs,-np.ones((np.shape(inputs)[0],1))),axis=1)
         outputs = self.mlpfwd(inputs)
         
