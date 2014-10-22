@@ -1,5 +1,6 @@
 import numpy as np
 import pcn as pcn
+import mlp_ML as mlp
 import rbf
 
 def kfold_xvalid(g_input, g_target, k):
@@ -7,7 +8,6 @@ def kfold_xvalid(g_input, g_target, k):
 	conf = np.zeros((3, 3))
 	for fold in range(k):
 #	for fold in range(1):
-		print fold
 		valid_input = g_input[fold]
 		valid_target = g_target[fold]		
 		#print valid_target	
@@ -24,19 +24,19 @@ def kfold_xvalid(g_input, g_target, k):
 		# print(train_target)
 
 		# Train & Test Perceptron network
-		net = pcn.pcn(train_input,train_target)
-		net.pcntrain(train_input,train_target,0.25,100)
-		conf += net.confmat(valid_input,valid_target)
+		# net = pcn.pcn(train_input,train_target)
+		# net.pcntrain(train_input,train_target,0.25,1000)
+		# conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test MultiLayer Perceptron network
-		#net = rbf.rbf(train,traint,5,1,1)
-		#net.rbftrain(train,traint,0.25,2000)
-		#conf += net.confmat(test,testt)
+		net = mlp_ML.mlp(train_input,train_input,2)
+		net.earlystopping(train_input,train_input, valid_input, valid_target, 0.1, 200)
+		conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test Radial Basis Function network
-		net = rbf.rbf(train_input,train_target,5,1,1)
-		net.rbftrain(train_input,train_target,0.25,500)
-		conf += net.confmat(valid_input,valid_target)
+		# net = rbf.rbf(train_input,train_target,5,1,1)
+		# net.rbftrain(train_input,train_target,0.25,500)
+		# conf += net.confmat(valid_input,valid_target)
 
 		# Train & Test Support Vector Machine
 		#net = rbf.rbf(train,traint,5,1,1)

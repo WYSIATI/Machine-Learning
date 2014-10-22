@@ -60,6 +60,7 @@ class pcn:
 		#print("PCN FORWARD INPUTS")
 		#print(inputs)
 
+		# print("PCN FORWARD INPUTS")
 		activations =  np.dot(inputs,self.weights)
 		#print("WEIGHTS")
 		#print(self.weights)
@@ -91,11 +92,8 @@ class pcn:
 		with_bias = np.concatenate((inputs,np.array([-1])), axis = 0)
 		#print "WITH BIAS" , with_bias
 		outputs = self.pcnfwd(with_bias)
-		print("OUTPUTS")
-		print outputs
 		#outputs = outputs[0, :]
 		nClasses = 3
-
 
 		cm = np.zeros((nClasses, nClasses))
 		temp_idx = np.where(targets == 1)
