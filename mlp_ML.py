@@ -147,6 +147,8 @@ class mlp:
         print 'INPUTS\n', inputs
 
         outputs = self.mlpfwd(inputs)
+
+        print "OUTPUTS: \n", outputs
         nClasses = 3
 
         cm = np.zeros((nClasses, nClasses))
