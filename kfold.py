@@ -76,9 +76,17 @@ def kfold_xvalid(g_input, g_target, k):
 		# print float(np.shape(testt)[0] - len(err))/ (np.shape(testt)[0]) , "test accuracy"
 
 		# Train & Test Decision Tree
-		#net = rbf.rbf(train,traint,5,1,1)
-		#net.rbftrain(train,traint,0.25,2000)
-		#conf += net.confmat(test,testt)
+		tree = dtree.dtree()
+		classes = np.array([0,1,2])
+		features = ['f1','f2','f3','f4']
+		mytree = tree.make_tree(train_input,classes,features)
+
+		predict = tree.classify(t,valid_input)
+
+		if (predict == valid_target)
+			print ("Correct")
+		else
+			print ("Incorrect")
 
 
 	# Get totals for each target
