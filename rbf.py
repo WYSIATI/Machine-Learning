@@ -117,7 +117,7 @@ class rbf:
         
         cm[temp_idx[0][0],:] = outputs
 
-#                cm[predict,truth] = np.where(outputs==predict,1,0)*np.where(targets==truth,1,0))
+        # cm[predict,truth] = np.where(outputs==predict,1,0)*np.where(targets==truth,1,0))
         # print ("In/Out/CM")
         # print targets
         # print outputs

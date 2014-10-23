@@ -2,6 +2,7 @@ import numpy as np
 import pcn as pcn
 import mlp_ML as mlp
 import rbf
+import svm
 
 def kfold_xvalid(g_input, g_target, k):
 
@@ -31,12 +32,12 @@ def kfold_xvalid(g_input, g_target, k):
 
 		# Train & Test MultiLayer Perceptron network
 
-		net = mlp.mlp(train_input,train_input,2)
-		# Not doing early stopping for now
-		#net.earlystopping(train_input,train_input, valid_input, valid_target, 0.1, 200)
-		net.mlptrain(train_input, train_input, 0.1, 200)
-		conf += net.confmat(valid_input,valid_target)
-		print "CONFUSION\n", conf
+		# net = mlp.mlp(train_input,train_input,2)
+		# # Not doing early stopping for now
+		# #net.earlystopping(train_input,train_input, valid_input, valid_target, 0.1, 200)
+		# net.mlptrain(train_input, train_input, 0.1, 200)
+		# conf += net.confmat(valid_input,valid_target)
+		# print "CONFUSION\n", conf
 
 		# Train & Test Radial Basis Function network
 		# net = rbf.rbf(train_input,train_target,5,1,1)
@@ -45,23 +46,23 @@ def kfold_xvalid(g_input, g_target, k):
 
 		# Train & Test Support Vector Machine
 		# Learn the full data
-		#svm0 = svm.svm(kernel='linear')
-		#svm0 = svm.svm(kernel='poly',C=0.1,degree=3)
-		# svm0 = svm.svm(kernel='rbf')
-		# svm0.train_svm(train,np.reshape(traint[:,0],(np.shape(train[:,:2])[0],1)))
-		# output[:,0] = svm0.classifier(test,soft=True).T
+		svm0 = svm.svm(kernel='linear')
+		svm0 = svm.svm(kernel='poly',C=0.1,degree=3)
+		svm0 = svm.svm(kernel='rbf')
+		svm0.train_svm(train_input,np.reshape(train_target[:,0],(np.shape(train_input[:,:2])[0],1)))
+		output[:,0] = svm0.classifier(valid_input,soft=True).T
 
-		# #svm1 = svm.svm(kernel='linear')
-		# #svm1 = svm.svm(kernel='poly',C=0.1,degree=3)
-		# svm1 = svm.svm(kernel='rbf')
-		# svm1.train_svm(train,np.reshape(traint[:,1],(np.shape(train[:,:2])[0],1)))
-		# output[:,1] = svm1.classifier(test,soft=True).T
+		#svm1 = svm.svm(kernel='linear')
+		#svm1 = svm.svm(kernel='poly',C=0.1,degree=3)
+		svm1 = svm.svm(kernel='rbf')
+		svm1.train_svm(train_input,np.reshape(train_target[:,1],(np.shape(train_input[:,:2])[0],1)))
+		output[:,1] = svm1.classifier(valid_input,soft=True).T
 
-		# #svm2 = svm.svm(kernel='linear')
-		# #svm2 = svm.svm(kernel='poly',C=0.1,degree=3)
-		# svm2 = svm.svm(kernel='rbf')
-		# svm2.train_svm(train,np.reshape(traint[:,2],(np.shape(train[:,:2])[0],1)))
-		# output[:,2] = svm2.classifier(test,soft=True).T
+		#svm2 = svm.svm(kernel='linear')
+		#svm2 = svm.svm(kernel='poly',C=0.1,degree=3)
+		svm2 = svm.svm(kernel='rbf')
+		svm2.train_svm(train_input,np.reshape(train_target[:,2],(np.shape(train_input[:,:2])[0],1)))
+		output[:,2] = svm2.classifier(valid_input,soft=True).T
 
 		# # Make a decision about which class
 		# # Pick the one with the largest margin

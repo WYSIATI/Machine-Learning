@@ -144,6 +144,7 @@ class mlp:
         temp_inputs[1] = inputs
         #inputs = np.concatenate((inputs,inputs),axis=0)
         inputs = temp_inputs
+        print 'INPUTS\n', inputs
 
         outputs = self.mlpfwd(inputs)
         nClasses = 3
