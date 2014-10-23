@@ -46,10 +46,12 @@ def kfold_xvalid(g_input, g_target, k):
 
 		# Train & Test Support Vector Machine
 		# Learn the full data
+		output = np.zeros((2, 3))
 		svm0 = svm.svm(kernel='linear')
 		svm0 = svm.svm(kernel='poly',C=0.1,degree=3)
 		svm0 = svm.svm(kernel='rbf')
 		svm0.train_svm(train_input,np.reshape(train_target[:,0],(np.shape(train_input[:,:2])[0],1)))
+		valid_input = np.vstack((valid_input, valid_input))
 		output[:,0] = svm0.classifier(valid_input,soft=True).T
 
 		#svm1 = svm.svm(kernel='linear')
