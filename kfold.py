@@ -3,6 +3,7 @@ import pcn as pcn
 import mlp_ML as mlp
 import rbf
 import svm
+import dtree
 
 def kfold_xvalid(g_input, g_target, k):
 
@@ -46,25 +47,25 @@ def kfold_xvalid(g_input, g_target, k):
 
 		# Train & Test Support Vector Machine
 		# Learn the full data
-		output = np.zeros((2, 3))
-		svm0 = svm.svm(kernel='linear')
-		svm0 = svm.svm(kernel='poly',C=0.1,degree=3)
-		svm0 = svm.svm(kernel='rbf')
-		svm0.train_svm(train_input,np.reshape(train_target[:,0],(np.shape(train_input[:,:2])[0],1)))
-		valid_input = np.vstack((valid_input, valid_input))
-		output[:,0] = svm0.classifier(valid_input,soft=True).T
+		# output = np.zeros((2, 3))
+		# svm0 = svm.svm(kernel='linear')
+		# svm0 = svm.svm(kernel='poly',C=0.1,degree=3)
+		# svm0 = svm.svm(kernel='rbf')
+		# svm0.train_svm(train_input,np.reshape(train_target[:,0],(np.shape(train_input[:,:2])[0],1)))
+		# valid_input = np.vstack((valid_input, valid_input))
+		# output[:,0] = svm0.classifier(valid_input,soft=True).T
 
-		#svm1 = svm.svm(kernel='linear')
-		#svm1 = svm.svm(kernel='poly',C=0.1,degree=3)
-		svm1 = svm.svm(kernel='rbf')
-		svm1.train_svm(train_input,np.reshape(train_target[:,1],(np.shape(train_input[:,:2])[0],1)))
-		output[:,1] = svm1.classifier(valid_input,soft=True).T
+		# #svm1 = svm.svm(kernel='linear')
+		# #svm1 = svm.svm(kernel='poly',C=0.1,degree=3)
+		# svm1 = svm.svm(kernel='rbf')
+		# svm1.train_svm(train_input,np.reshape(train_target[:,1],(np.shape(train_input[:,:2])[0],1)))
+		# output[:,1] = svm1.classifier(valid_input,soft=True).T
 
-		#svm2 = svm.svm(kernel='linear')
-		#svm2 = svm.svm(kernel='poly',C=0.1,degree=3)
-		svm2 = svm.svm(kernel='rbf')
-		svm2.train_svm(train_input,np.reshape(train_target[:,2],(np.shape(train_input[:,:2])[0],1)))
-		output[:,2] = svm2.classifier(valid_input,soft=True).T
+		# #svm2 = svm.svm(kernel='linear')
+		# #svm2 = svm.svm(kernel='poly',C=0.1,degree=3)
+		# svm2 = svm.svm(kernel='rbf')
+		# svm2.train_svm(train_input,np.reshape(train_target[:,2],(np.shape(train_input[:,:2])[0],1)))
+		# output[:,2] = svm2.classifier(valid_input,soft=True).T
 
 		# # Make a decision about which class
 		# # Pick the one with the largest margin
@@ -77,15 +78,15 @@ def kfold_xvalid(g_input, g_target, k):
 
 		# Train & Test Decision Tree
 		tree = dtree.dtree()
-		classes = np.array([0,1,2])
+		#classes = [0,1,2]
 		features = ['f1','f2','f3','f4']
-		mytree = tree.make_tree(train_input,classes,features)
+		mytree = tree.make_tree(train_input,train_target,features)
 
 		predict = tree.classify(t,valid_input)
 
-		if (predict == valid_target)
+		if (predict == valid_target):
 			print ("Correct")
-		else
+		else:
 			print ("Incorrect")
 
 
